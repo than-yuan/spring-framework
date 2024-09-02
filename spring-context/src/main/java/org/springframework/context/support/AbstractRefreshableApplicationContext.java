@@ -119,14 +119,21 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 */
 	@Override
 	protected final void refreshBeanFactory() throws BeansException {
+		// 如果已存在beanFactory，
 		if (hasBeanFactory()) {
+			System.out.println("已存在BeanFactory，销毁旧的后创建一个新的BeanFactory");
 			destroyBeans();
 			closeBeanFactory();
 		}
 		try {
+			// 创建了一个DefaultListableBeanFactory
 			DefaultListableBeanFactory beanFactory = createBeanFactory();
+			// 设置序列化id
 			beanFactory.setSerializationId(getId());
+			// 定制化beanFactory
 			customizeBeanFactory(beanFactory);
+			// 开始准备beanDefinition信息
+			System.out.println("开始准备beanDefinition信息");
 			loadBeanDefinitions(beanFactory);
 			this.beanFactory = beanFactory;
 		}
@@ -212,6 +219,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 * @see DefaultListableBeanFactory#setAllowEagerClassLoading
 	 */
 	protected void customizeBeanFactory(DefaultListableBeanFactory beanFactory) {
+		// 和lookup-method， replaced-method方法相关
 		if (this.allowBeanDefinitionOverriding != null) {
 			beanFactory.setAllowBeanDefinitionOverriding(this.allowBeanDefinitionOverriding);
 		}
