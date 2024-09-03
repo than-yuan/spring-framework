@@ -523,10 +523,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			// 2.容器的开启关闭标志位
 			// 3. 初始化propertyResource对象
 			// 4. 拿到Environment对象并且校验
+			// 5.设置监听器和事件集合
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
-			System.out.println("开始创建beanFactory");
+			System.out.println("2.开始创建beanFactory");
 			// 1.创建一个beanFactory DefaultListableBeanFactory
 			// 2.为beanFactory设置属性
 			// 3.创建beanDefinitionReader
@@ -534,35 +535,43 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
+			System.out.println("3.准备beanFactory，初始化beanFactory的属性");
 			// 完成beanFactory基础属性的设置，并且设置忽略bean的Aware接口
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
+				System.out.println("准备beanFactoryPostProcessor");
 				// 注册BeanFactoryPostProcessor
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
+				System.out.println("执行BeanFactoryPostProcessor");
 				// 依次执行所有的BeanFactoryPostProcessor
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				System.out.println("准备BeanPostProcessor");
 				// 注册bean所需要的所有的BPP
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
+				System.out.printf("国际化设置");
 				// 国际化设置
 				initMessageSource();
 
 				// Initialize event multicaster for this context.
+				System.out.println("全局广播器，处理一些全局的监听事件");
 				// 准备广播器处理全局时间，便于处理全局事件
 				initApplicationEventMulticaster();
 
 				// Initialize other special beans in specific context subclasses.
 				// 本身无实现，作为扩展的部分
+				System.out.println("onRefresh");
 				onRefresh();
 
 				// Check for listener beans and register them.
+				System.out.println("准备监听器");
 				// 监听器
 				registerListeners();
 
