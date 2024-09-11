@@ -227,6 +227,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * Create a new AbstractApplicationContext with no parent.
 	 */
 	public AbstractApplicationContext() {
+		// 设置一个资源解析器，在进行解析beanDefinition时会用到
 		this.resourcePatternResolver = getResourcePatternResolver();
 	}
 

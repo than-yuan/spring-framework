@@ -1,14 +1,13 @@
 package org.springframework;
 
-import org.springframework.config.AppConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.service.testService;
+import org.springframework.customerEditor.TestCustomerEditorConfig;
+import org.springframework.dto.Person;
 
 public class Main {
 	public static void main(String[] args) {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		testService bean = context.getBean(testService.class);
-		bean.test();
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestCustomerEditorConfig.class);
+		Person person = context.getBean(Person.class);
+		System.out.println(person.getFamilyInfo().toString());
 	}
 }
