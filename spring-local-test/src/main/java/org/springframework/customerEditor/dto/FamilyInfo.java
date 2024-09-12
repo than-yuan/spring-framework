@@ -1,4 +1,4 @@
-package org.springframework.dto;
+package org.springframework.customerEditor.dto;
 
 public class FamilyInfo {
 	private String fatherName;

@@ -1,6 +1,6 @@
 package org.springframework.customerEditor;
 
-import org.springframework.dto.FamilyInfo;
+import org.springframework.customerEditor.dto.FamilyInfo;
 
 import java.beans.PropertyEditorSupport;
 

@@ -93,6 +93,9 @@ import org.springframework.util.ClassUtils;
  * @see ConfigurableBeanFactory#registerCustomEditor
  * @see org.springframework.validation.DataBinder#registerCustomEditor
  */
+
+
+// 这个类实现了BeanFactoryPostProcessor，当Spring容器在invokeBeanFactoryPostProcessor时会调用每一个BFPP的postProcessBeanFactory方法
 public class CustomEditorConfigurer implements BeanFactoryPostProcessor, Ordered {
 
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -142,11 +145,13 @@ public class CustomEditorConfigurer implements BeanFactoryPostProcessor, Ordered
 
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		// 将customEditorRegistrar 放入BeanFactory中，之后再由registrar的registerCustomEditors方法将自己的Editor注册到BeanFactory的customEditor中
 		if (this.propertyEditorRegistrars != null) {
 			for (PropertyEditorRegistrar propertyEditorRegistrar : this.propertyEditorRegistrars) {
 				beanFactory.addPropertyEditorRegistrar(propertyEditorRegistrar);
 			}
 		}
+		// customEditor是一个Map结构，不会出现冲突的Class的Editor
 		if (this.customEditors != null) {
 			this.customEditors.forEach(beanFactory::registerCustomEditor);
 		}

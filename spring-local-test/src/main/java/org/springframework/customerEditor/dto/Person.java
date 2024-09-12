@@ -1,4 +1,4 @@
-package org.springframework.dto;
+package org.springframework.customerEditor.dto;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
