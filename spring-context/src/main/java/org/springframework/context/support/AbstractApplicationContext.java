@@ -544,9 +544,17 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				// Allows post-processing of the bean factory in context subclasses.
 				System.out.println("准备beanFactoryPostProcessor");
 				// 注册BeanFactoryPostProcessor
+				// 暂时没有实现，作为扩展用
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
+				// 1. 执行context里面的BeanDefinitionRegistryPostProcessor的postProcessBeanDefinitionRegistry方法·
+				// 2. 执行beanFactory实现了PriorityOrdered的BeanDefinitionRegistryPostProcessor的postProcessBeanDefinitionRegistry方法
+				// 3. 执行beanFactory实现了Ordered的BeanDefinitionRegistryPostProcessor的postProcessBeanDefinitionRegistry方法
+				// 4. 执行context和beanFactory中所有BeanDefinitionRegistryPostProcessor（继承自BFPP）的所有的postProcessBeanFactory的方法
+				// 5. 执行context中所有BeanFactoryPostProcessor的postProcessBeanFactory方法
+				// 6. 执行beanFactory实现了PriorityOrdered的BeanFactoryPostProcessor的postProcessBeanFactory方法
+				// 7. 执行beanFactory实现了Ordered的BeanFactoryPostProcessor的postProcessBeanFactory方法
 				System.out.println("执行BeanFactoryPostProcessor");
 				// 依次执行所有的BeanFactoryPostProcessor
 				invokeBeanFactoryPostProcessors(beanFactory);

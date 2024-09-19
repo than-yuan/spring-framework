@@ -7,7 +7,7 @@ import org.springframework.customerEditor.dto.FamilyInfo;
 
 
 
-public class SelfEditorRegistrar implements PropertyEditorRegistrar {
+public class  SelfEditorRegistrar implements PropertyEditorRegistrar {
 	@Override
 	public void registerCustomEditors(PropertyEditorRegistry registry) {
 		registry.registerCustomEditor(FamilyInfo.class, new FamilyInfoEditor());
